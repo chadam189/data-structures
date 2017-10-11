@@ -17,12 +17,12 @@ var Queue = function() {
     if (storage.size === 0) {
       return 'queue is empty';
     }
-    var tempVar = storage['1'];
+    var dequeueVal = storage['1'];
     for (var i = 1; i < storage.size; i++) {
       storage[i] = storage[i + 1];
     }
     storage.size--;
-    return tempVar;
+    return dequeueVal;
   };
 
   someInstance.size = function() {
