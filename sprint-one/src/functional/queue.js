@@ -10,22 +10,19 @@ var Queue = function() {
 
   someInstance.enqueue = function(value) {
     storage.size++;
-    var newIndex = String(storage.size);
-    storage[newIndex] = value;
+    storage[storage.size] = value;
   };
 
   someInstance.dequeue = function() {
     if (storage.size === 0) {
-      return 'Queue is empty';
-    } else {
-      var returnedValue = storage['1'];
-      for (var i = 1; i < storage.size; i++) {
-        storage[String(i)] = storage[String(i + 1)];
-      }
-      delete storage[String(storage.size)];
-      storage.size--;
-      return returnedValue;
+      return 'queue is empty';
     }
+    var dequeueVal = storage['1'];
+    for (var i = 1; i < storage.size; i++) {
+      storage[i] = storage[i + 1];
+    }
+    storage.size--;
+    return dequeueVal;
   };
 
   someInstance.size = function() {
