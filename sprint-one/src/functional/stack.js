@@ -9,18 +9,17 @@ var Stack = function() {
   // Implement the methods below
   someInstance.push = function(value) {
     storage.size++;
-    var newIndex = String(storage.size);
-    storage[newIndex] = value;
+    storage[storage.size.toString()] = value;
   };
-
+  
   someInstance.pop = function() {
     if (storage.size === 0) {
-      return 'Stack is empty';
-    } else {
-      var returnedIndex = String(storage.size);
-      storage.size--;
-      return storage[returnedIndex];
+      return 'stack is empty';
     }
+    var popValue = storage[storage.size];
+    delete storage[storage.size];
+    storage.size--;
+    return popValue;
   };
 
   someInstance.size = function() {
