@@ -13,7 +13,6 @@ var LinkedList = function() {
     if (this.head === null) {
       this.head = this.tail;
     }
-
   };
 
   list.removeHead = function() {
