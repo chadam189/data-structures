@@ -46,6 +46,19 @@ describe('hashTable', function() {
     expect(hashTable.retrieve(v2)).to.equal(v2);
     window.getIndexBelowMaxForKey = oldHashFunction;
   });
+  
+  xit('should correctly track the quantity of values in the hash table', function() {
+    debugger;
+    expect(hashTable._storage.tupleCount).to.equal(0);
+    hashTable.insert('Steven', 'Tyler');
+    expect(hashTable._storage.tupleCount).to.equal(1);
+    hashTable.insert('Bob', 'Loblaw');
+    expect(hashTable._storage.tupleCount).to.equal(2);
+    hashTable.remove('Steven');
+    expect(hashTable._storage.tupleCount).to.equal(1);
+    hashTable.remove('Bob');
+    expect(hashTable._storage.tupleCount).to.equal(0);
+  });
 
   // (Advanced! Remove the extra "x" when you want the following tests to run)
   xit ('should double in size when needed', function() {
