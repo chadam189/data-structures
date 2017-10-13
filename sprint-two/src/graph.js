@@ -26,6 +26,17 @@ Graph.prototype.contains = function(target) {
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
+  var removeNodeIndex = -1;
+  // find indexes of the two nodes
+  for (var i = 0; i < this.nodes.length; i++) {
+    if (this.nodes[i].value === node) {
+      removeNodeIndex = i;
+    }
+  }
+  if (removeNodeIndex === -1) {
+    return;
+  }
+  this.nodes.splice(removeNodeIndex, 1);
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
@@ -42,7 +53,7 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
     }
   }
   // check if both exist or it's the same node
-  if (fromNodeIndex === -1 || toNodeIndex === -1 || fromNodeIndex === toNodeIndex) {
+  if (fromNodeIndex === -1 || toNodeIndex === -1) {
     return false;
   }
   if (this.nodes[fromNodeIndex].edges.includes(toNode)) {
@@ -65,7 +76,7 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
     }
   }
   // check if both exist or it's the same node
-  if (fromNodeIndex === -1 || toNodeIndex === -1 || fromNodeIndex === toNodeIndex) {
+  if (fromNodeIndex === -1 || toNodeIndex === -1) {
     return;
   }
   // check if edge already exists between the two nodes
@@ -91,7 +102,7 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
     }
   }
   // check if both exist or it's the same node
-  if (fromNodeIndex === -1 || toNodeIndex === -1 || fromNodeIndex === toNodeIndex) {
+  if (fromNodeIndex === -1 || toNodeIndex === -1) {
     return;
   }
   if (this.nodes[fromNodeIndex].edges.includes(toNode)) {
@@ -104,6 +115,12 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
+  // this.nodes.forEach(function(elem) {
+  //   cb(elem);
+  // });
+  for (var i = 0; i < this.nodes.length; i++) {
+    cb(this.nodes[i].value);
+  }
 };
 
 /*
