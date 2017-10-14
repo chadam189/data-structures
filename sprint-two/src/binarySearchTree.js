@@ -62,6 +62,29 @@ BinarySearchTree.prototype.depthFirstLog = function(callback) {
   }
 };
 
+BinarySearchTree.prototype.breadthFirstLog = function(callback) {
+  // callback of this node's value
+  callback(this.value);
+  // callback of this node's left child value
+  if (this.left !== null) {
+    callback(this.left.value);
+  }
+  // callback of this node's right child value
+  if (this.right !== null) {
+    callback(this.right.value);
+  }
+  // callback of left branch's value
+  // then recursively on left branch's children 
+  if (this.left !== null) {
+    this.left.depthFirstLog(callback);
+  }
+  // callback of right branch's value
+  // then recursively on right branch's children 
+  if (this.right !== null) {
+    this.right.depthFirstLog(callback);
+  }
+};
+
 /*
  * Complexity: What is the time complexity of the above functions?
  */
