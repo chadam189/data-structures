@@ -12,79 +12,24 @@
 //   limitedArray.get(3); // returns 'hi'
 
 var LimitedArray = function(limit) {
-  
+  // var storage = [];
 
   var limitedArray = {};
   limitedArray.storage = [];
-  limitedArray.tupleCount = 0;
-  limitedArray.get = function(index, key) {
+  limitedArray.get = function(index) {
     checkLimit(index);
-    // find the index of the tuple within the storage array
-    var tupleIndex = -1; 
-    for (var i = 0; i < limitedArray.storage[index].length; i++) {
-      if (limitedArray.storage[index][i][0] === key) {
-        tupleIndex = i;
-      }
-    }
-    
-    // if this key isn't found, then return nothing
-    if (tupleIndex === -1) {
-      return;
-    } 
-    
-    return limitedArray.storage[index][tupleIndex][1];
+    return this.storage[index];
   };
-  
-  limitedArray.set = function(index, key, value) {
+  limitedArray.set = function(index, value) {
     checkLimit(index);
-    // if this is the first time setting anything at this index
-    if (Array.isArray(limitedArray.storage[index]) === false) {
-      limitedArray.storage[index] = [];
-    }
-    
-    // check for this key
-    // determine whether this is a new key entry, or if we're overwriting an existing value for this key 
-    var tupleIndex = -1; 
-    for (var i = 0; i < limitedArray.storage[index].length; i++) {
-      if (limitedArray.storage[index][i][0] === key) {
-        tupleIndex = i;
-      }
-    }
-    
-    // if duplicate is not found, then we are adding a new key/value pair to the hash table, so increase the tuple counter
-    if (tupleIndex === -1) {
-      this.tupleCount++;
-    } 
-    
-    // add key/value pair (or overwrite existing value for the given key) at this index
-    limitedArray.storage[index].push([key, value]);
+    this.storage[index] = value;
   };
-  
-  limitedArray.deletePair = function(index, key) {
-    checkLimit(index);
-    // if there are no key/value pairs at this index, do nothing
-    if (Array.isArray(limitedArray.storage[index]) === false) {
-      return;
+  limitedArray.each = function(callback) {
+    for (var i = 0; i < this.storage.length; i++) {
+      callback(this.storage[i], i, this.storage);
     }
-    
-    // find the index of the key/value pair to be removed
-    var tupleIndex = -1; 
-    for (var i = 0; i < limitedArray.storage[index].length; i++) {
-      if (limitedArray.storage[index][i][0] === key) {
-        tupleIndex = i;
-      }
-    }
-    
-    // if the key/value pair is not found, then do nothing
-    if (tupleIndex === -1) {
-      return;
-    } 
-    
-    this.tupleCount--;
-    limitedArray.storage[index].splice(tupleIndex, 1);
   };
-  
-  
+
   var checkLimit = function(index) {
     if (typeof index !== 'number') {
       throw new Error('setter requires a numeric index for its first argument');
