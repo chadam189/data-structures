@@ -40,5 +40,39 @@ describe('tree', function() {
     expect(tree.contains(7)).to.equal(true);
     expect(tree.contains(8)).to.equal(true);
   });
+  
+  it('should correctly assign parent references', function() {
+    tree.addChild(5);
+    expect(tree.children[0].parent).to.equal(tree);
+    tree.children[0].addChild(7);
+    expect(tree.children[0].children[0].parent.parent).to.equal(tree);
+  });
+  
+  it('should correctly remove a node and its children from a tree', function() {
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.children[0].addChild(7);
+    tree.children[1].addChild(8);
+    expect(tree.contains(6)).to.equal(true);
+    expect(tree.contains(8)).to.equal(true);
+    tree.children[1].removeFromParent();
+    expect(tree.contains(6)).to.equal(false);
+    expect(tree.contains(8)).to.equal(false);
+  });
+  
+  it('should correctly traverse a tree and run a function on each node', function() {
+    var sum = 0;
+    var testFunction = function(node) {
+      if (node.value !== undefined) {
+        sum += node.value;
+      }
+    };
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.children[0].addChild(7);
+    tree.children[1].addChild(8);
+    tree.traverse(testFunction);
+    expect(sum).to.equal(26);
+  });
 
 });
