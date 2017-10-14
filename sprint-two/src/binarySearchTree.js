@@ -81,7 +81,6 @@ BinarySearchTree.prototype.breadthFirstLog = function(callback) {
       nextLevel.push(currentLevel[i].right);
     }
     for (var i = 0; i < nextLevel.length; i++) {
-      // if (nextLevel[i] === null || nextLevel[i] === undefined) {
       if (nextLevel[i]) {
         queue.enqueue(nextLevel[i].value);
       }
