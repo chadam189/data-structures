@@ -46,18 +46,6 @@ describe('hashTable', function() {
     expect(hashTable.retrieve(v2)).to.equal(v2);
     window.getIndexBelowMaxForKey = oldHashFunction;
   });
-  
-  it('should correctly track the quantity of values in the hash table', function() {
-    expect(hashTable._storage.tupleCount).to.equal(0);
-    hashTable.insert('Steven', 'Tyler');
-    expect(hashTable._storage.tupleCount).to.equal(1);
-    hashTable.insert('Bob', 'Loblaw');
-    expect(hashTable._storage.tupleCount).to.equal(2);
-    hashTable.remove('Steven');
-    expect(hashTable._storage.tupleCount).to.equal(1);
-    hashTable.remove('Bob');
-    expect(hashTable._storage.tupleCount).to.equal(0);
-  });
 
   // (Advanced! Remove the extra "x" when you want the following tests to run)
   it ('should double in size when needed', function() {
@@ -67,7 +55,6 @@ describe('hashTable', function() {
       hashTable.insert(firstName, lastName);
       expect(hashTable.retrieve(firstName)).to.equal(lastName);
     });
-    
     expect(hashTable._limit).to.equal(16);
   });
 
@@ -78,14 +65,12 @@ describe('hashTable', function() {
       hashTable.insert(firstName, lastName);
       expect(hashTable.retrieve(firstName)).to.equal(lastName);
     });
-    debugger;
     expect(hashTable._limit).to.equal(16);
     hashTable.remove('George');
     hashTable.remove('Dr.');
     hashTable.remove('Steven');
     hashTable.remove('John');
     hashTable.remove('Mr.');
-    debugger;
     expect(hashTable._limit).to.equal(8);
   });
 });
