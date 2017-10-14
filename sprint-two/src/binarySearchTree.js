@@ -64,7 +64,7 @@ BinarySearchTree.prototype.depthFirstLog = function(callback) {
 
 BinarySearchTree.prototype.breadthFirstLog = function(callback) {
   // queue is equal to new Queue()
-    // add tree.val to Q
+  // add tree.val to queue
   var queue = new Queue();
   queue.enqueue(this.value);
   // if tree is null (empty) then return
@@ -74,27 +74,28 @@ BinarySearchTree.prototype.breadthFirstLog = function(callback) {
   currentLevel.push(this);
   var nextLevel = [];
   
-  while (nextLevel.every(function(val) {
-    return (val === undefined || val === null);
-  })) {
+  do {
     nextLevel = [];
     for (var i = 0; i < currentLevel.length; i++) {
-      nextLevel.push(currentLevel[i].left.value);
-      nextLevel.push(currentLevel[i].right.value);
+      nextLevel.push(currentLevel[i].left);
+      nextLevel.push(currentLevel[i].right);
     }
     for (var i = 0; i < nextLevel.length; i++) {
-      if (nextLevel[i] !== null || nextLevel[i] !== undefined) {
-        queue.enqueue(nextLevel[i]);
+      // if (nextLevel[i] === null || nextLevel[i] === undefined) {
+      if (nextLevel[i]) {
+        queue.enqueue(nextLevel[i].value);
       }
     }
     currentLevel = nextLevel;
-  }
+  } while (nextLevel.every(function(val) {
+    return (val !== undefined && val !== null);
+  }));
   
   // }
   // EASY PART!!! 
   // dequeue each item on Q, and take that value
-  var temp = queue.size();
-  for (var j = 0; j < temp; j++) {
+  var temp1 = queue.size();
+  for (var j = 0; j < temp1; j++) {
     var temp = queue.dequeue();
     callback(temp);
   }
